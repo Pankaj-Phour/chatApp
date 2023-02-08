@@ -1,0 +1,247 @@
+.top{
+    max-height: 60px;
+    height: 60px;
+    max-width: 100vw;
+    width: 100%;
+}
+.parent{
+    height:100vh;
+    // height: 100%;
+    max-width: 100vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    // height: 100vh;
+    max-height: 100%;
+    height: 100%;
+    max-width: 100%;
+    width: 25%;
+    background-color: white;
+}
+.namesHeading{
+    max-width: 100%;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    background-color: rgb(214, 214, 214);
+    opacity: 0.8;
+}
+.chatOptions{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 100%;
+    width: 40%;
+
+}
+.namesSearch{
+    height: 60px;
+    background-color: rgb(243, 241, 241);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.namesSearch input{
+    padding: 10px;
+    max-width: 100%;
+    width: 90%;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    color: gray !important;
+}
+::-webkit-scrollbar {
+    width: 5px;
+  }
+::-webkit-scrollbar-thumb {
+    // background-color: #041410 !important; 
+    background-color: rgb(214, 214, 214) !important; 
+  }
+.names{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    height: 100%;
+}
+.username{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 20px;
+    width: 100%;
+    font-size: 22px;
+    color: gray;
+    font-family: 'roboto';
+    border-bottom: 1px solid rgb(214, 214, 214);
+    text-align: center;
+    padding-block: 15px;
+    padding-inline: 10px;
+    box-sizing: border-box;
+    // cursor: pointer;
+}
+.username:hover{
+    // background-color: rgb(9, 51, 9);
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+    opacity: 0.5;
+}
+.right{
+    background-image: url('/assets/images/whatsappBackground.jfif');
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    height: 100%;
+    max-width: 100%;
+    width: 75%;
+    background-color: antiquewhite;
+}
+.header{
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // background-color:#041410;
+    background-color:rgb(214, 214, 214);
+    height: 60px;
+    color: white;
+    box-sizing: border-box;
+    padding-inline: 10px;
+    opacity: 0.9;
+}
+.leftName{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 100%;
+    width: 40%;
+    column-gap: 20px;
+}
+.rightOptions{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 70px;
+    max-width: 150px;
+    width: 100%;
+    position: relative;
+}
+.bottom{
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    background-color: rgb(227, 227, 227);
+}
+.input{
+    max-width: 100%;
+    width: 80%;
+}
+.right input{
+    max-width: 100%;
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding: 15px;
+    background-color: white;
+    font-size: 16px;
+    font-family: 'roboto';
+    color: gray;
+}
+.sendIcon{
+   cursor: pointer;
+//    height: 50px;
+//    width: 50px;
+//    background-color: gray;
+//    border-radius: 50%;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+}
+.messages{
+    height: calc(100vh - 100px);;
+    max-width: 100%;
+    width: 99%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    // justify-content: flex-end;
+    align-items: flex-end;
+    
+}
+.message{
+    // background-color: #507a6c;
+    background-color: #daf5c4;
+    padding: 8px;
+    border-radius: 5px;
+
+}
+
+
+
+
+
+
+
+
+
+
+img{
+    cursor: pointer;
+}
+
+
+
+
+// CSS for the more options dialogBox 
+.menuBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+}
+.menuList{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+    max-height: 100%;
+    height: 100%;
+}
+.itemName{
+    padding: 10px;
+    padding-inline-start: 25px;
+    font-size: 16px;
+    color: gray;
+    font-family: 'roboto';
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+}
+.itemName:hover{
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
+
+    ::ng-deep .cdk-overlay-container{
+        position: absolute;
+        top: 4%;
+        left: 82.5%;
+    }
