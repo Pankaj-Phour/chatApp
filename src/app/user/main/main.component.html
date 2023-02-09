@@ -1,0 +1,59 @@
+<div class="body">
+    <!-- <div class="top">
+        <app-top></app-top>
+    </div> -->
+    <div class="parent">
+        <div class="left">
+            <div class="header" style="height: 66px;border-right: 2px solid rgb(190, 190, 190);">
+                <div class="chatHead">
+                    <img src="/assets/images/Account circle.png" height="50" width="50">
+                </div>
+                <div class="chatOptions" style="position: relative;">
+                    <img src="/assets/images/Chat.png" height="25" width="25">
+                    <img src="/assets/images/More vert.png" height="25" width="25" (click)="chatOptions('app')">
+                </div>
+            </div>
+            <div class="namesSearch">
+                <input type="text" placeholder="Search or Start new chat" (input)="FilterNames($event)">
+            </div>
+            <div class="names" [ngStyle]="{'justify-content':blank ? 'center' : '','align-items':blank ? 'center' : ''}">
+                <div class="username" *ngFor="let data of names" [ngStyle]="{'background-color':selected.name==data.name ? 'rgb(214,214,214)' : '','opacity':selected.name==data.name ? '0.7' : '1'}" (click)="nameClick(data)">
+                    <img src="/assets/images/Account circle.png" height="50" width="50">
+                    <span style="cursor: pointer;">{{data.name}}</span>
+                </div>
+                <span *ngIf="blank"><img src="/assets/images/abey-saale.jpg" style="max-width: 500px;width: 100%;height: auto;"></span>
+            </div>
+        </div>
+        <div class="right">
+            <div class="header">
+                <div class="leftName">
+                    <div class="profilePhoto"><img src="/assets/images/Account circle.png" height="50" width="50"></div>
+                    <div class="userName">{{selected.name}}</div>
+                </div>
+                <div class="rightOptions">
+                    <!-- <div class="videoCall"></div> -->
+                    <div class="call"><img src="/assets/images/Attach file.png" height="25" width="25"></div>
+                    <div class="more"><img src="/assets/images/More vert.png" height="25" width="25" (click)="chatOptions('single')"></div>
+                </div>
+            </div>
+            <div class="messages">
+                <div class="message" *ngFor="let data of selected.messageList">{{data.message}}</div>
+            </div>
+            <div class="bottom">
+                <div class="emojiIcon">
+                    <img src="/assets/images/Emoji emotions.png" height="35" width="35">
+                </div>
+                <div class="input">
+                    <form [formGroup]="inputForm">
+
+                        <input type="text" formControlName="message" placeholder="Enter your message here" (keydown)="keyEnter($event)">
+                    </form>
+                </div>
+                <div class="sendIcon">
+                    <img src="/assets/images/grayMic.png" *ngIf="inputForm.invalid" height="35" width="35">
+                    <img src="/assets/images/graySend.png" height="35" *ngIf="inputForm.valid" width="35" (click)="send()" >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

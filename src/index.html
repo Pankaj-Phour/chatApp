@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AirbnbClone</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    let socket = io('http://localhost:9000');
+    socket.on('connect', ()=>{
+      console.log("Socket connected",socket);
+    })
+
+  
+    socket.on('firstClient',(msg)=>{
+      console.log(msg);
+    })
+
+    socket.emit('messageToServer',{text:"HEllo from front End"})
+
+    
+    </script>
+</body>
+</html>
