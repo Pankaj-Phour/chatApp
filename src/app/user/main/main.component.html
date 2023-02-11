@@ -17,9 +17,19 @@
                 <input type="text" placeholder="Search or Start new chat" (input)="FilterNames($event)">
             </div>
             <div class="names" [ngStyle]="{'justify-content':blank ? 'center' : '','align-items':blank ? 'center' : ''}">
-                <div class="username" *ngFor="let data of names" [ngStyle]="{'background-color':selected.name==data.name ? 'rgb(214,214,214)' : '','opacity':selected.name==data.name ? '0.7' : '1'}" (click)="nameClick(data)">
-                    <img src="/assets/images/Account circle.png" height="50" width="50">
-                    <span style="cursor: pointer;">{{data.name}}</span>
+                <div class="username" *ngFor="let data of names" [ngStyle]="{'background-color':selected.name==data.name ? 'rgb(214,214,214)' : '','opacity':selected.name==data.name ? '0.9' : ''}" (click)="nameClick(data)">
+                    <div class="singleLeft" #singleLeft>
+
+                        <img src="/assets/images/Account circle.png" height="50" width="50">
+                        <span  class="singleName" [ngStyle]="{'height':data.messageList.length>0 ? '100%' : ''}">
+                            {{data.name}}
+                            <span class="lastMessage" *ngIf="data.messageList.length>0 || data.typing" [ngStyle]="{'width':singleLeft.clientWidth-100+'px','color':data.typing ? 'green' : ''}">{{data.typing ? 'typing...' : data.messageList[data.messageList.length-1]?.message}}</span>
+                        </span>
+                    </div>
+                    <div class="singleRight">
+                        <span style="font-size:15px;color:rgb(155, 155, 155);">{{data.lastMessage}}</span>
+                    </div>
+                    
                 </div>
                 <span *ngIf="blank"><img src="/assets/images/abey-saale.jpg" style="max-width: 500px;width: 100%;height: auto;"></span>
             </div>
@@ -36,17 +46,22 @@
                     <div class="more"><img src="/assets/images/More vert.png" height="25" width="25" (click)="chatOptions('single')"></div>
                 </div>
             </div>
-            <div class="messages">
-                <div class="message" *ngFor="let data of selected.messageList">{{data.message}}</div>
+            <div class="messages" #messages>
+                <div class="date"><span>{{date}}</span></div>
+                <div class="message" *ngFor="let data of selected.messageList" [ngStyle]="{'max-width': (messages.clientWidth/2+50) + 'px', 'width':'fit-content'}">
+                    <span class="messageText">{{data.message}}</span>
+                </div>
             </div>
             <div class="bottom">
                 <div class="emojiIcon">
-                    <img src="/assets/images/Emoji emotions.png" height="35" width="35">
+                    <img src="/assets/images/Emoji emotions.png" height="35" width="35" (click)="emojiBoxToggle();">
+                    <!-- <textarea placeholder="Type a message" type="text" name="textarea" [(ngModel)]="textArea"></textarea> -->
+<emoji-mart class="emoji-mart" *ngIf="isEmojiPickerVisible" (emojiSelect)="addEmoji($event)" title="Choose your emoji"></emoji-mart>
                 </div>
                 <div class="input">
                     <form [formGroup]="inputForm">
 
-                        <input type="text" formControlName="message" placeholder="Enter your message here" (keydown)="keyEnter($event)">
+                        <input type="text" id="inputBox" formControlName="message" placeholder="Enter your message here" (input)="messageInput($event)" (keydown)="keyEnter($event)">
                     </form>
                 </div>
                 <div class="sendIcon">

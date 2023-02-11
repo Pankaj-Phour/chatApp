@@ -82,7 +82,7 @@
                                 </div> -->
                             </div>
                             <div class="bottomButton">
-                                <button [ngClass]="signinForm.invalid ? 'disabled-btn' : 'submit-btn'" (click)="Submit()">Sign In</button>
+                                <button [ngClass]="signinForm.invalid ? 'disabled-btn' : 'submit-btn'" (click)="Submit()" [disabled]="signinForm.invalid">Sign In</button>
                             </div>
                         </form>
                         <form [formGroup]="otpForm" *ngIf="numberSubmit">

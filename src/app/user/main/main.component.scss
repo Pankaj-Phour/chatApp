@@ -88,6 +88,24 @@
     box-sizing: border-box;
     // cursor: pointer;
 }
+.singleLeft{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    column-gap: 20px;
+    width: 80%;
+    font-size: 22px;
+    text-align: center;
+}
+.lastMessage{
+    text-align: left;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   width: 100px;
+    font-size: 15px;
+    color: rgb(155,155,155);
+}
 .username:hover{
     // background-color: rgb(9, 51, 9);
     background-color: rgb(214, 214, 214);
@@ -125,6 +143,20 @@
     max-width: 100%;
     width: 40%;
     column-gap: 20px;
+}
+.singleName{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    justify-content: space-around;
+    // height: 100%;
+    font-weight: 500;
+    align-items: flex-start;
+}
+.userName{
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
 }
 .rightOptions{
     display: flex;
@@ -179,15 +211,58 @@
     row-gap: 4px;
     // justify-content: flex-end;
     align-items: flex-end;
+    overflow: auto;
     
 }
-.message{
-    // background-color: #507a6c;
-    background-color: #daf5c4;
+.date{
+    margin-top: 10px;
+    display: flex;
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;   
+}
+.date span{
+    font-size: 14px;
+    width: 120px;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(232, 253, 251);
+}
+.message{
+    padding-inline: 20px;
+    // background-color: #507a6c;
+    // background-color: #daf5c4;
+    // position: relative;
+    // background-color: rgb(220,248,198);
+    // padding: 8px;
+    // border-radius: 12px;
+    // box-shadow: rgba(220,248,198, 0.25) 0px 5px 10px -2px, rgba(220,248,198, 0.3) 0px 3px 6px -3px, rgba(220,248,198, 0.35) 0px -2px 6px 0px inset;
 
 }
+.messageText{
+    display: flex;
+    position: relative;
+    background-color: rgb(220,248,198);
+    width: calc(100% - 15px);
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: rgba(220,248,198, 0.25) 0px 5px 10px -2px, rgba(220,248,198, 0.3) 0px 3px 6px -3px, rgba(220,248,198, 0.35) 0px -2px 6px 0px inset;
+}
+.message span::after{
+    content: "";
+      position: absolute;
+      left: 100%;
+      bottom: 20%;
+      width: 0;
+      height: 0;
+      border-top: 3px solid transparent;
+      border-left: 18px solid rgb(220,248,198);
+      border-bottom: 12px solid transparent;
+
+}
+
 
 
 
@@ -236,12 +311,33 @@ img{
     box-sizing: border-box;
 }
 .itemName:hover{
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(236, 236, 236);
     cursor: pointer;
+    opacity: 0.5 !important;
 }
 
-    ::ng-deep .cdk-overlay-container{
+::ng-deep .mat-dialog-container{
         position: absolute;
-        top: 4%;
-        left: 82.5%;
+        // top: 4%;
+        // left: 84.5%;
+        height: 250px;
+        width: 230px;
+        background-color: white;
+        padding: 0px;
     }
+::ng-deep .cdk-overlay-dark-backdrop{
+    background: transparent;
+}
+
+
+
+
+// CSS for the Emoji box 
+.emojiIcon{
+    position: relative;
+}
+.emoji-mart{
+    position: absolute;
+    bottom: 0%;
+    left: 100%;
+}

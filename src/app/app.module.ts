@@ -13,6 +13,7 @@ import { MainComponent, MenuBox } from './user/main/main.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CommonModule } from '@angular/common';
     NgOtpInputModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    PickerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
