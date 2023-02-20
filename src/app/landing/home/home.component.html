@@ -7,13 +7,18 @@
             </div>
             <div class="right">
                 <div class="form">
-                    <form [formGroup]="signupForm">
+                    <form [formGroup]="signupForm" *ngIf="!numberSubmit">
                         <div class="top" style="color: gray;font-size: 13px;">Have an account? <span style="color:#d4888d;cursor: pointer;" (click)="Signin()">Sign In</span></div>
                         <div class="header">
                             <div class="heading">Sign up</div>
                             <div class="text">Let's start your wonderful journey with us</div>
                         </div>
                         <div class="inputs">
+                            <div class="formGroup">
+                                <input type="text" placeholder="Enter your name" formControlName="name" [ngClass]="signupForm.get('name').hasError('required') && signupForm.get('name').touched ? 'borderError' : ''">
+                                <span class="error" *ngIf="signupForm.get('name').hasError('required') && signupForm.get('name').touched">*required</span>
+                                <!-- <span class="error" *ngIf="signupForm.get('email').hasError('email') && signupForm.get('email').touched">*Invalid</span> -->
+                            </div>
                             <div class="formGroup">
                                 <input type="text" placeholder="Enter your email" formControlName="email" [ngClass]="signupForm.get('email').hasError('required') && signupForm.get('email').touched ? 'borderError' : ''">
                                 <span class="error" *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched">*required</span>
@@ -50,6 +55,27 @@
                                 <img src="assets/images/facebook-xl.png" height="30" width="15">
                                 <img src="assets/images/twitter-xl.png" height="30" width="30">
                             </div>
+                        </div>
+                    </form>
+                    <form [formGroup]="otpForm" *ngIf="numberSubmit">
+                        <div class="top" style="color: gray;font-size: 13px;">Already have an account? <span style="color:#d4888d;cursor: pointer;" (click)="Signin()">Sign in</span></div>
+                        <div class="header">
+                            <div class="heading">Sign Up</div>
+                            <div class="text">Let's start your wonderful journey with us</div>
+                        </div>
+                        <div class="inputs">
+                            <div class="formGroup" style="display: flex;justify-content: center;">
+                                <ng-otp-input  formnControlName="otp"  [config]="{length:4}" (keydown)="keyValue($event)" (onInputChange)="onOtpChange($event)"></ng-otp-input>
+                                <span class="error" *ngIf="signinForm.get('contact').hasError('required') && signinForm.get('contact').touched">*required</span>
+                                 <span class="error" *ngIf="!signinForm.get('contact').hasError('required') && signinForm.get('contact').touched && contactError">*Invalid</span>
+                            </div>
+                            <!-- <div class="formGroup">
+                                <input type="text" placeholder="Enter your contact" formControlName="otp">
+                            </div> -->
+                        </div>
+                        <div class="bottomButton">
+                            <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp"></mat-spinner>
+                            <button [ngClass]="invalidOtp ? 'disabled-btn' : 'submit-btn'" [disabled]="invalidOtp">{{invalidOtp ? 'Sign Up' : 'Signing Up...'}}</button>
                         </div>
                     </form>
                 </div>

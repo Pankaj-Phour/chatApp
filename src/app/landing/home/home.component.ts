@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -20,10 +21,11 @@ export class HomeComponent implements OnInit {
   differentPassword:boolean = false;
   numberSubmit:boolean = false;
   invalidOtp:boolean = true;
-  constructor(private fb:FormBuilder,private router:Router) { }
+  constructor(private fb:FormBuilder,private router:Router, private _as:AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
+      name: ['', Validators.required],
       email:['',Validators.compose([Validators.required, Validators.email])],
       contact:['',Validators.compose([Validators.required, Validators.minLength(7),Validators.maxLength(14)])],
       password:['',Validators.required],
@@ -40,7 +42,7 @@ export class HomeComponent implements OnInit {
   Signin(){
     // console.log("SIgn in",this.signupForm);
     this.signIn = !this.signIn;
-    
+    this.numberSubmit = false;
     var cards = document.querySelectorAll('.box') ;
     // var card = document.getElementsByClassName('box').firstElementChild.classList.toggle('is-flipped');
 
@@ -53,6 +55,24 @@ export class HomeComponent implements OnInit {
   Submit(){
     console.log("Submitted");
     this.signIn ? this.numberSubmit = true : this.numberSubmit = false;
+    if(this.signIn){
+      const params = {
+        contact:this.signinForm.value.contact
+      }
+      console.log(params);
+      
+      this._as.signIn('/signIn',params).subscribe((next:any)=>{
+        console.log(next);
+      })
+    }
+    else{
+      this.numberSubmit = true;
+      const params = this.signupForm.value;
+      this._as.signUp('/signup',params).subscribe((next:any)=>{
+        console.log(next);
+        
+      })
+    }
     this.signinForm.reset();
     this.signinForm.reset();
   }
@@ -110,16 +130,24 @@ export class HomeComponent implements OnInit {
     
   }
   onOtpChange(e:any){
-    // console.log(e,typeof e,e*0);
+    console.log(e,typeof e,e*0);
   
     if(e.length>3){
-      this.invalidOtp = false;
-      console.log("OTP submitted successfully");
-      setTimeout(() => {
-        this.Signin()
-        this.numberSubmit = false;
-        this.router.navigate(['/dashboard']);
-      }, 2000);
+      const params = {
+        otp:e
+      }
+      console.log(params);
+      
+      this._as.otpChecker('/otpChecker',params).subscribe((next:any)=>{
+        console.log(next);
+        this.invalidOtp = false;
+        console.log("OTP submitted successfully");
+        setTimeout(() => {
+          this.Signin()
+          this.numberSubmit = false;
+          this.router.navigate(['/dashboard']);
+        }, 2000);
+      })
     }
     else{
       this.invalidOtp = true;
