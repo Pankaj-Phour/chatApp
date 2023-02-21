@@ -14,6 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatProgressSpinnerModule,
     MatIconModule,
     MatDialogModule,
-    PickerModule
+    PickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

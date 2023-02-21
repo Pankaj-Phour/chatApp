@@ -2,6 +2,7 @@ import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { data, type } from 'jquery';
+import { AuthService } from 'src/app/auth.service';
 
 @Component({
   selector: 'app-main',
@@ -23,9 +24,14 @@ nameList:any = ['Richard','Luis Fonsi','John','Smith','Billy','Sam','Steve','Ton
 inputForm:any = FormGroup;
 selected:any;
 public textArea: string = '';
-  constructor(private fb:FormBuilder, private dialogRef:MatDialog) { }
+  constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService) { }
 
   ngOnInit(): void {
+
+    this._as.allUsers('/allusers').subscribe((next:any)=>{
+      console.log("All users response",next);
+      
+    })
     const date = new Date();
     this.date = date.toString().substring(8,10) + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear();
     
