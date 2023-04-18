@@ -40,6 +40,12 @@ export class HomeComponent implements OnInit {
     })
   }
   Signin(){
+    this._as.obNotify({
+      start:true,
+      code:200,
+      status:'success',
+      message:'Logged Out'
+    })
     // console.log("SIgn in",this.signupForm);
     this.signIn = !this.signIn;
     this.numberSubmit = false;

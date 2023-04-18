@@ -15,6 +15,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { HttpClientModule } from '@angular/common/http';
+import { NotificationComponent } from './notification/notification.component';
+import { NotifyComponent } from './notify/notify.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     TopComponent,
     MainComponent,
-    MenuBox
+    MenuBox,
+    NotificationComponent,
+    NotifyComponent
   ],
   imports: [
     BrowserModule,

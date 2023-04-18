@@ -1,7 +1,7 @@
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { data, type } from 'jquery';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
 @Component({
@@ -30,7 +30,19 @@ public textArea: string = '';
 
     this._as.allUsers('/allusers').subscribe((next:any)=>{
       console.log("All users response",next);
+      this.names = [...next.response];
+      // console.log(this.names);
       
+      for(let i=0; i<next.response.length; i++){
+        this.names[i].index = i;
+        this.names[i].lastMessage = this.days[Math.round(Math.random()*5)]
+      }
+      this.names.map((data:any)=>{
+        return data.lastMessage === undefined ? data.lastMessage = 'Yesterday' : ''
+      })
+      this.selected = this.names[0];
+      // console.log(this.names);
+      this.original = this.names;
     })
     const date = new Date();
     this.date = date.toString().substring(8,10) + ' ' + this.months[date.getMonth()] + ' ' + date.getFullYear();
@@ -38,22 +50,6 @@ public textArea: string = '';
     this.inputForm = this.fb.group({
       message: ['',Validators.required]
     })
-    for(let i=0; i<this.nameList.length; i++){
-      this.names.push({})
-      this.names[i].name = this.nameList[i];
-      this.names[i].typing = false;
-      this.names[i].sending = '';
-      
-      this.names[i].index = i;
-      this.names[i]['messageList'] = [];
-      this.names[i].lastMessage = this.days[Math.round(Math.random()*5)]
-    }
-    this.names.map((data:any)=>{
-      return data.lastMessage === undefined ? data.lastMessage = 'Yesterday' : ''
-    })
-    this.selected = this.names[0];
-    console.log(this.names);
-    this.original = this.names;
   }
 
   FilterNames(e:any){
@@ -169,10 +165,21 @@ export interface DialogData {
 export class MenuBox implements OnInit{
 
   constructor(@Inject(MAT_DIALOG_DATA) public Menu,
-  public dialogRef: MatDialogRef<MenuBox>
-  ){}
+  public dialogRef: MatDialogRef<MenuBox>, private router:Router,private _as:AuthService){}
   ngOnInit(): void {
       console.log("Hello from MenuBOx",this.Menu);
       
+  }
+
+  logout(){
+    console.log("Loggin out");
+    this._as.obNotify({
+      start:true,
+      code:200,
+      status:'success',
+      message:'Logged out Successfully'
+    })
+    this.router.navigate(['/']);
+    this.dialogRef.close();
   }
 }
