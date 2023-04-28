@@ -18,6 +18,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from './notification/notification.component';
 import { NotifyComponent } from './notify/notify.component';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,9 +44,29 @@ import { NotifyComponent } from './notify/notify.component';
     MatIconModule,
     MatDialogModule,
     PickerModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule,
+    CoolSocialLoginButtonsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '323821630968-n6recgjk8de95rthp0o14lg7a535uqes.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents:[MenuBox]
 })
