@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,9 +22,29 @@ export class HomeComponent implements OnInit {
   differentPassword:boolean = false;
   numberSubmit:boolean = false;
   invalidOtp:boolean = true;
-  constructor(private fb:FormBuilder,private router:Router, private _as:AuthService) { }
 
+  user:any;
+  loggedIn:any;
+  constructor(private fb:FormBuilder,private router:Router, private _as:AuthService,private authService:SocialAuthService) { }
+
+
+  googleLogin(){
+    console.log("Hello from login function ");
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      console.log("Checking data of the user",this.user);
+      this.router.navigate(['/dashboard']);
+    });
+  }
   ngOnInit(): void {
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      console.log("Checking data of the user",this.user);
+      this.router.navigate(['/dashboard']);
+    });
+
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email:['',Validators.compose([Validators.required, Validators.email])],
