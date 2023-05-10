@@ -38,12 +38,6 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log("Checking data of the user",this.user);
-      this.router.navigate(['/dashboard']);
-    });
 
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
