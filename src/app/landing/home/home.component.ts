@@ -34,11 +34,12 @@ export class HomeComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       console.log("Checking data of the user",this.user);
+      localStorage.setItem('logged_in','true')
       this.router.navigate(['/dashboard']);
     });
   }
   ngOnInit(): void {
-
+    this.googleLogin();
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email:['',Validators.compose([Validators.required, Validators.email])],
