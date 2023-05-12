@@ -34,17 +34,12 @@ export class HomeComponent implements OnInit {
       this.user = user;
       this.loggedIn = (user != null);
       console.log("Checking data of the user",this.user);
+      localStorage.setItem('logged_in','true')
       this.router.navigate(['/dashboard']);
     });
   }
   ngOnInit(): void {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      console.log("Checking data of the user",this.user);
-      this.router.navigate(['/dashboard']);
-    });
-
+    this.googleLogin();
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email:['',Validators.compose([Validators.required, Validators.email])],
@@ -61,12 +56,12 @@ export class HomeComponent implements OnInit {
     })
   }
   Signin(){
-    this._as.obNotify({
-      start:true,
-      code:200,
-      status:'success',
-      message:'Logged Out'
-    })
+    // this._as.obNotify({
+    //   start:true,
+    //   code:200,
+    //   status:'success',
+    //   message:'Logged Out'
+    // })
     // console.log("SIgn in",this.signupForm);
     this.signIn = !this.signIn;
     this.numberSubmit = false;

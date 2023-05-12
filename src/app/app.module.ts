@@ -21,6 +21,7 @@ import { NotifyComponent } from './notify/notify.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
+import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
     HttpClientModule,
     SocialLoginModule,
     CoolSocialLoginButtonsModule,
+    GoogleSigninButtonModule
   ],
   providers: [
     {
