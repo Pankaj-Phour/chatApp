@@ -29,7 +29,7 @@ public textArea: string = '';
   ngOnInit(): void {
 
     this._as.allUsers('/allusers').subscribe((next:any)=>{
-      console.log("All users response",next);
+      // console.log("All users response",next);
       this.names = [...next.response];
       // console.log(this.names);
       
@@ -172,6 +172,7 @@ export class MenuBox implements OnInit{
   }
 
   logout(){
+    this.router.navigate(['/']);
     console.log("Loggin out");
     this._as.obNotify({
       start:true,
@@ -179,7 +180,6 @@ export class MenuBox implements OnInit{
       status:'success',
       message:'Logged out Successfully'
     })
-    this.router.navigate(['/']);
     this.dialogRef.close();
   }
 }

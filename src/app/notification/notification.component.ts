@@ -21,10 +21,10 @@ export class NotificationComponent implements OnInit {
   constructor(private resolver: ComponentFactoryResolver, private _as: AuthService, private viewContainerRef:ViewContainerRef) { }
 
   ngOnInit() {
-    console.log("Hello from Notification component",this.container);
+    // console.log("Hello from Notification component",this.container);
     
     this._as.notify$.subscribe(next => {
-      console.log(next);
+      // console.log(next);
       
       if (next.start && this.messageList.indexOf(next.message) === -1) {
         this.addComponent(this.componentClass, next);
