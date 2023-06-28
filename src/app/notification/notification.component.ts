@@ -34,11 +34,11 @@ export class NotificationComponent implements OnInit {
 
   addComponent(componentClass: Type<any>, config) {
 
-    console.log(this.container,componentClass);
+    // console.log(this.container,componentClass);
     
     const componentFactory = this.resolver.resolveComponentFactory(componentClass);
     const component = this.container.createComponent(componentFactory);
-    console.log(this.container,component);
+    // console.log(this.container,component);
     
     component.instance.status = config.status;
     component.instance.limit = config.s ? config.s : 1;

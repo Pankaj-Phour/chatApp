@@ -172,7 +172,7 @@ export class MenuBox implements OnInit{
   }
 
   logout(){
-    this.router.navigate(['/']);
+    this.router.navigate(['../']);
     console.log("Loggin out");
     this._as.obNotify({
       start:true,
