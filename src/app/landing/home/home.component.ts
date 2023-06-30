@@ -129,6 +129,7 @@ export class HomeComponent implements OnInit {
         // console.log(next);
         if (next && !next.error) {
           this.numberSubmit = true;
+          localStorage.setItem('user-email',params['email'])
           this._as.obNotify({
             start: true,
             code: 200,
@@ -216,7 +217,8 @@ export class HomeComponent implements OnInit {
 
     if (e.length > 3) {
       const params = {
-        otp: e
+        otp: e,
+        email : localStorage.getItem('user-email')
       }
       console.log(params);
 
