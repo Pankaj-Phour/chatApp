@@ -36,7 +36,34 @@ export class HomeComponent implements OnInit {
       this.loggedIn = (user != null);
       console.log("Checking data of the user", this.user);
       localStorage.setItem('logged_in', 'true')
-      this.router.navigate(['/dashboard']);
+      // this.router.navigate(['/dashboard']);
+      
+      if(this.loggedIn){
+        let params = {
+          email : this.user.email
+        };
+            this._as.signIn('/signIn', params).subscribe((next: any) => {
+          // console.log(next);
+          if (next && !next.error) {
+            this.numberSubmit = true;
+            this._as.obNotify({
+              start: true,
+              code: 200,
+              status: 'success',
+              message: next.message
+            })
+          }
+          else {
+            this.numberSubmit = false;
+            this._as.obNotify({
+              start: true,
+              code: 200,
+              status: 'error',
+              message: next.message
+            })
+          }
+        })
+      }
     });
   }
   ngOnInit(): void {
@@ -84,7 +111,6 @@ export class HomeComponent implements OnInit {
 
   Submit() {
     console.log("Submitted");
-    this.signIn ? this.numberSubmit = true : this.numberSubmit = false;
     if (this.signIn) {
       let params = {};
       if (this.emailLogin) {
@@ -102,6 +128,7 @@ export class HomeComponent implements OnInit {
       this._as.signIn('/signIn', params).subscribe((next: any) => {
         // console.log(next);
         if (next && !next.error) {
+          this.numberSubmit = true;
           this._as.obNotify({
             start: true,
             code: 200,
@@ -110,6 +137,7 @@ export class HomeComponent implements OnInit {
           })
         }
         else {
+          this.numberSubmit = false;
           this._as.obNotify({
             start: true,
             code: 200,
