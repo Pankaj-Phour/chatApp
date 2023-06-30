@@ -17,7 +17,7 @@
                 <input type="text" placeholder="Search or Start new chat" (input)="FilterNames($event)">
             </div>
             <div class="names" [ngStyle]="{'justify-content':blank ? 'center' : '','align-items':blank ? 'center' : ''}">
-                <div class="username" *ngFor="let data of names" [ngStyle]="{'background-color':selected.name==data.name ? 'rgb(214,214,214)' : '','opacity':selected.name==data.name ? '0.9' : ''}" (click)="nameClick(data)">
+                <div class="username" *ngFor="let data of names" [ngStyle]="{'background-color':selected?.name==data.name ? 'rgb(214,214,214)' : '','opacity':selected?.name==data.name ? '0.9' : ''}" (click)="nameClick(data)">
                     <div class="singleLeft" #singleLeft>
 
                         <img src="/assets/images/Account circle.png" height="50" width="50">
@@ -38,7 +38,7 @@
             <div class="header">
                 <div class="leftName">
                     <div class="profilePhoto"><img src="/assets/images/Account circle.png" height="50" width="50"></div>
-                    <div class="userName">{{selected.name}}</div>
+                    <div class="userName">{{selected?.name}}</div>
                 </div>
                 <div class="rightOptions">
                     <!-- <div class="videoCall"></div> -->
@@ -48,7 +48,7 @@
             </div>
             <div class="messages" #messages>
                 <div class="date"><span>{{date}}</span></div>
-                <div class="message" *ngFor="let data of selected.messageList" [ngStyle]="{'max-width': (messages.clientWidth/2+50) + 'px', 'width':'fit-content'}">
+                <div class="message" *ngFor="let data of selected?.messageList" [ngStyle]="{'max-width': (messages.clientWidth/2+50) + 'px', 'width':'fit-content'}">
                     <span class="messageText">{{data.message}}</span>
                 </div>
             </div>

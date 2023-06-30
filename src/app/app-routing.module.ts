@@ -6,23 +6,26 @@ import { TopComponent } from './user/top/top.component';
 import { AuthGuard } from './service/auth.guard';
 
 const routes: Routes = [
-  {path:'', component:HomeComponent},
   {
-    path:'top',
-   component:TopComponent,
-   canActivate:[AuthGuard]
+    path: '',
+    component: HomeComponent
+  },
+  {
+    path: 'top',
+    component: TopComponent,
+    canActivate: [AuthGuard]
   },
 
   {
-    path:'dashboard',
-     component:MainComponent,
-     canActivate:[AuthGuard]
-    },
+    path: 'dashboard',
+    component: MainComponent,
+    canActivate: [AuthGuard]
+  },
   {
-    path:'**',
-     redirectTo:'',
-     pathMatch:'full'
-    },
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

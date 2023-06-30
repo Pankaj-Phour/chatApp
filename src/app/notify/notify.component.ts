@@ -23,7 +23,7 @@ export class NotifyComponent implements OnInit {
   v: any;
   constructor(private elem: ElementRef) {}
   ngOnInit() {
-    console.log("Hello from notify component");
+    // console.log("Hello from notify component");
     
     if (this.message.toLowerCase().search('otp') === -1) {
       this.message.toLowerCase().replace('otp', 'OTP');
