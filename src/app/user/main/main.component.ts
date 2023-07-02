@@ -65,11 +65,11 @@ public textArea: string = '';
     else{
       this.blank = false;
     }
-    console.log(this.names,this.blank);
+    // console.log(this.names,this.blank);
   }
 
   nameClick(e:any){
-    console.log(e);
+    // console.log(e);
     this.selected = e;
     const input = document.getElementById('inputBox') as HTMLInputElement;
     input.focus();
@@ -86,16 +86,16 @@ public textArea: string = '';
       this.names[this.selected.index].typing = false;
     }
     else{
-      console.log("Can't send Empty message");
+      // console.log("Can't send Empty message");
     }
   }
 
   mouseEnter(e:any){
-    console.log("Focus in",e);
+    // console.log("Focus in",e);
     // this.names[this.selected.index].typing = true;
   }
   mouseLeave(e:any){
-    console.log("Focus out",e);
+    // console.log("Focus out",e);
     // this.names[this.selected.index].typing = false;
   }
   keyEnter(e:any){
@@ -135,7 +135,7 @@ public textArea: string = '';
   // ******************************************* This function is to close the popup dialog while clicking anywhere on the screen *******************************************
   @HostListener('window:click')
   onNoClick(){
-    console.log(this.dialogRef,this.isEmojiPickerVisible);
+    // console.log(this.dialogRef,this.isEmojiPickerVisible);
    this.isEmojiPickerVisible ?  this.isEmojiPickerVisible = false : ''
   }
 
@@ -145,7 +145,7 @@ public textArea: string = '';
       // this.isEmojiPickerVisible = true;
       const input = document.getElementById('inputBox') as HTMLInputElement;
       input.value += this.textArea;
-      console.log(input,input.value,this,this.textArea);
+      // console.log(input,input.value,this,this.textArea);
       this.inputForm.get('message').setValue(input.value)
       
    }
@@ -167,7 +167,7 @@ export class MenuBox implements OnInit{
   constructor(@Inject(MAT_DIALOG_DATA) public Menu,
   public dialogRef: MatDialogRef<MenuBox>, private router:Router,private _as:AuthService){}
   ngOnInit(): void {
-      console.log("Hello from MenuBOx",this.Menu);
+      // console.log("Hello from MenuBOx",this.Menu);
       
   }
 
