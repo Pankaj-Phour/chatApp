@@ -12,8 +12,11 @@ export class SocketService {
 
 
   SocketConnection(){
-    this.socket = io(environment.URL)
-    this.socket.on('message',(msg:any)=>{
+    this.socket = io(environment.URL);
+
+    this.socket.emit('message',"Message from frontend")
+
+    this.socket.on('response',(msg:any)=>{
       console.log("Message from backend",msg);
       
     })
