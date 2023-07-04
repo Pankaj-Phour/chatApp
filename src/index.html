@@ -15,17 +15,20 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js" integrity="sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-    let socket = io('http://localhost:3000');
-    socket.on('connect', ()=>{
-      console.log("Socket connected",socket);
-    })
-
-  
-    socket.on('firstClient',(msg)=>{
-      console.log(msg);
-    })
-
-    socket.emit('messageToServer',{text:"HEllo from front End"})
+    // let socket = io('http://localhost:3000');
+    // socket.on('connect', ()=>{
+    //   console.log("Socket connected",socket);
+      
+      
+    //   socket.on('firstClient',(msg)=>{
+    //     console.log(msg);
+    //   })
+    //   socket.on('messsage',(msg)=>{
+    //     console.log("Message from",msg); 
+    //   })
+      
+    // })
+    // socket.emit('messageToServer',{text:"HEllo from front End"})
     
     
     </script>

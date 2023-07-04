@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,12 @@ export class HomeComponent implements OnInit {
   user: any;
   loggedIn: any;
   emailLogin: boolean = true;
-  constructor(private fb: FormBuilder, private router: Router, private _as: AuthService, private authService: SocialAuthService) { }
+  constructor(private fb: FormBuilder, 
+    private router: Router,
+     private _as: AuthService,
+      private authService: SocialAuthService,
+      private _socketService:SocketService
+      ) { }
 
 
   googleLogin() {
@@ -67,6 +73,7 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this._socketService.SocketConnection();
     this.googleLogin();
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
