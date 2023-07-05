@@ -45,30 +45,10 @@ export class HomeComponent implements OnInit {
       // this.router.navigate(['/dashboard']);
       
       if(this.loggedIn){
-        let params = {
-          email : this.user.email
-        };
-            this._as.signIn('/signIn', params).subscribe((next: any) => {
-          // console.log(next);
-          if (next && !next.error) {
-            this.numberSubmit = true;
-            this._as.obNotify({
-              start: true,
-              code: 200,
-              status: 'success',
-              message: next.message
-            })
-          }
-          else {
-            this.numberSubmit = false;
-            this._as.obNotify({
-              start: true,
-              code: 200,
-              status: 'error',
-              message: next.message
-            })
-          }
-        })
+        if(this.signIn){
+
+        }
+       
       }
     });
   }
@@ -98,6 +78,8 @@ export class HomeComponent implements OnInit {
     })
   }
   Signin() {
+    console.log("Sign in function clicked",this.signIn);
+    
     // this._as.obNotify({
     //   start:true,
     //   code:200,
@@ -132,36 +114,12 @@ export class HomeComponent implements OnInit {
       }
       // console.log(params);
 
-      this._as.signIn('/signIn', params).subscribe((next: any) => {
-        // console.log(next);
-        if (next && !next.error) {
-          this.numberSubmit = true;
-          localStorage.setItem('user-email',params['email'])
-          this._as.obNotify({
-            start: true,
-            code: 200,
-            status: 'success',
-            message: next.message
-          })
-        }
-        else {
-          this.numberSubmit = false;
-          this._as.obNotify({
-            start: true,
-            code: 200,
-            status: 'error',
-            message: next.message
-          })
-        }
-      })
+      this.signInwithEmail(params)
     }
     else {
       this.numberSubmit = true;
       const params = this.signupForm.value;
-      this._as.signUp('/signup', params).subscribe((next: any) => {
-        // console.log(next);
-
-      })
+      this._as.signUp('/signup', params).subscribe((next: any) => {})
     }
     this.signinForm.reset();
     this.signinForm.reset();
@@ -253,6 +211,67 @@ export class HomeComponent implements OnInit {
     else {
       e.preventDefault();
     }
+  }
+
+
+
+
+
+  signInwithEmail(email:any){
+    let params = {
+      email : email
+    };
+        this._as.signIn('/signIn', params).subscribe((next: any) => {
+      // console.log(next);
+      if (next && !next.error) {
+        this.numberSubmit = true;
+        localStorage.setItem('user-email',params['email'])
+        this._as.obNotify({
+          start: true,
+          code: 200,
+          status: 'success',
+          message: next.message
+        })
+      }
+      else {
+        this.numberSubmit = false;
+        this._as.obNotify({
+          start: true,
+          code: 200,
+          status: 'error',
+          message: next.message
+        })
+      }
+    })
+  }
+
+
+  signupWithEmail(user:any){
+    let params = {
+      name : user.fullName,
+      email : user.email
+    };
+        this._as.signIn('/signIn', params).subscribe((next: any) => {
+      // console.log(next);
+      if (next && !next.error) {
+        this.numberSubmit = true;
+        this._as.obNotify({
+          start: true,
+          code: 200,
+          status: 'success',
+          message: next.message
+        })
+      }
+      else {
+        this.numberSubmit = false;
+        this._as.obNotify({
+          start: true,
+          code: 200,
+          status: 'error',
+          message: next.message
+        })
+      }
+    })
   }
 }
 

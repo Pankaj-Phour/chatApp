@@ -79,14 +79,7 @@
                                     <hr style="width: 30%;border-color: gray;">
                                 </div>
                                 <div class="second">
-                                    <!-- <img src="assets/images/google-xl.png" height="30" width="30" (click)="googleLogin()"> -->
                                     <asl-google-signin-button (click)="googleLogin()"></asl-google-signin-button>
-                                    <!-- <div class="google-btn" (click)="googleLogin()">
-                                    <div class="google-icon-wrapper">
-                                      <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                    </div>
-                                    <p class="btn-text"><b>Sign in with google</b></p>
-                                  </div> -->
                                     <img src="assets/images/facebook-xl.png" height="30" width="15">
                                     <img src="assets/images/twitter-xl.png" height="30" width="30">
                                 </div>
@@ -161,6 +154,18 @@
                             <div class="bottomButton">
                                 <button [ngClass]="signinForm.invalid ? 'disabled-btn' : 'submit-btn'"
                                     (click)="Submit()" [disabled]="signinForm.invalid">Sign In</button>
+                            </div>
+                            <div class="bottom">
+                                <div class="first">
+                                    <hr style="width: 30%;border-color: gray;"><span class="text">Or continue with
+                                    </span>
+                                    <hr style="width: 30%;border-color: gray;">
+                                </div>
+                                <div class="second">
+                                    <asl-google-signin-button (click)="googleLogin()"></asl-google-signin-button>
+                                    <img src="assets/images/facebook-xl.png" height="30" width="15">
+                                    <img src="assets/images/twitter-xl.png" height="30" width="30">
+                                </div>
                             </div>
                         </form>
                         <form [formGroup]="otpForm" *ngIf="numberSubmit">
