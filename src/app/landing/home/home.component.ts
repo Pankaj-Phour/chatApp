@@ -1,5 +1,5 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -10,7 +10,7 @@ import { SocketService } from 'src/app/services/socket.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   signupForm: any = FormGroup;
   signinForm: any = FormGroup;
   otpForm: any = FormGroup;
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
      private _as: AuthService,
       private authService: SocialAuthService,
-      private _socketService:SocketService
+      private _socketService:SocketService,
+      private _cdr:ChangeDetectorRef
       ) { }
 
 
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this._socketService.SocketConnection();
+    // this._socketService.SocketConnection();
     this.googleLogin();
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
@@ -76,6 +77,10 @@ export class HomeComponent implements OnInit {
     this.otpForm = this.fb.group({
       otp: ['', Validators.required]
     })
+  }
+
+  ngAfterViewInit(): void {
+      this._cdr.detectChanges();
   }
   Signin() {
     console.log("Sign in function clicked",this.signIn);
@@ -177,6 +182,7 @@ export class HomeComponent implements OnInit {
               status: 'success',
               message: next.message
             })
+            localStorage.setItem('user',JSON.stringify(next.response))
             this.router.navigate(['/dashboard']);
           }, 2000);
         }
