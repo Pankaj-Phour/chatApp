@@ -36,19 +36,18 @@ export class HomeComponent implements OnInit {
 
 
   googleLogin() {
-    // console.log("Hello from login function ");
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
       console.log("Checking data of the user", this.user);
       localStorage.setItem('logged_in', 'true')
-      // this.router.navigate(['/dashboard']);
-      
       if(this.loggedIn){
         if(this.signIn){
-
+          this.signInwithEmail(this.user)
         }
-       
+        else{
+          this.signupWithEmail(this.user)
+        }
       }
     });
   }
@@ -112,27 +111,23 @@ export class HomeComponent implements OnInit {
           contact: this.signinForm.value.contact
         }
       }
-      // console.log(params);
-
       this.signInwithEmail(params)
     }
     else {
       this.numberSubmit = true;
       const params = this.signupForm.value;
-      this._as.signUp('/signup', params).subscribe((next: any) => {})
+      this.signupWithEmail(params)
     }
     this.signinForm.reset();
     this.signinForm.reset();
   }
 
   contactInput(e: any) {
-    // console.log(e);
     if (((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 8)) {
       this.contactLength ? this.contactLength.length > 13 || this.contactLength.length < 6 ? this.contactError = true : this.contactError = false : this.contactError = false
       this.contactLength ? this.contactLength.length > 13 ? e.keyCode !== 8 ? e.preventDefault() : '' : '' : ''
     }
     else {
-      // console.log("Invalid key pressed");
       e.preventDefault();
       this.contactError = true;
     }
@@ -145,52 +140,31 @@ export class HomeComponent implements OnInit {
 
   // Function to check the password and confirm password 
   confirmPasswordInput(e: any) {
-    console.log(e.target.value);
     this.password = e.target.value;
     if (e.target.value !== this.Cpassword) {
-      // console.log("if block in c password");
-
       this.differentPassword = true
     }
     else {
-      // console.log("else block c password");
-
       this.differentPassword = false
     }
-    console.log(this.differentPassword);
-
-
   }
   passwordInput(e: any) {
-    console.log(e.target.value);
     this.Cpassword = e.target.value;
     if (e.target.value !== this.password) {
-      // console.log("If block in password");
-
       this.differentPassword = true
     }
     else {
-      // console.log("else block password");
-
       this.differentPassword = false
     }
-    // console.log(this.differentPassword);
-
   }
   onOtpChange(e: any) {
-    // console.log(e,typeof e,e*0);
-
     if (e.length > 3) {
       const params = {
         otp: e,
         email : localStorage.getItem('user-email')
       }
-      console.log(params);
-
       this._as.otpChecker('/otpChecker', params).subscribe((next: any) => {
-        // console.log(next);
         this.invalidOtp = false;
-        // console.log("OTP submitted successfully");
         setTimeout(() => {
           this.Signin()
           this.numberSubmit = false;
@@ -204,7 +178,6 @@ export class HomeComponent implements OnInit {
   }
 
   keyValue(e: any) {
-    // console.log(e);
     if (((e.keyCode >= 96 && e.keyCode <= 105) || (e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 8)) {
       // DO NOTHING 
     }
@@ -217,12 +190,11 @@ export class HomeComponent implements OnInit {
 
 
 
-  signInwithEmail(email:any){
+  signInwithEmail(data:any){
     let params = {
-      email : email
+      email : data.email
     };
         this._as.signIn('/signIn', params).subscribe((next: any) => {
-      // console.log(next);
       if (next && !next.error) {
         this.numberSubmit = true;
         localStorage.setItem('user-email',params['email'])
@@ -249,10 +221,13 @@ export class HomeComponent implements OnInit {
   signupWithEmail(user:any){
     let params = {
       name : user.fullName,
-      email : user.email
+      email : user.email,
+      contact: user['contact'],
+      password: user['password'],
+      confirmPassword: user['confirmPassword'],
+      checkbox: user['checkbox']
     };
-        this._as.signIn('/signIn', params).subscribe((next: any) => {
-      // console.log(next);
+      this._as.signIn('/signup', params).subscribe((next: any) => {
       if (next && !next.error) {
         this.numberSubmit = true;
         this._as.obNotify({
@@ -274,9 +249,5 @@ export class HomeComponent implements OnInit {
     })
   }
 }
-
-// $(document).on("click", ".parent", function () {
-// 	$(this).toggleClass('hover');
-// });
 
 
