@@ -104,9 +104,9 @@
                                 </div>
                             </div>
                             <div class="bottomButton">
-                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp"></mat-spinner>
-                                <button [ngClass]="invalidOtp ? 'disabled-btn' : 'submit-btn'"
-                                    [disabled]="invalidOtp">{{invalidOtp ? 'Sign Up' : 'Signing Up...'}}</button>
+                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp || otpSubmit"></mat-spinner>
+                                <button [ngClass]="invalidOtp && !otpSubmit ? 'disabled-btn' : 'submit-btn'"
+                                    [disabled]="invalidOtp && !otpSubmit">{{invalidOtp && !otpSubmit ? 'Sign Up' : 'Signing Up...'}}</button>
                             </div>
                         </form>
                     </div>
@@ -187,9 +187,9 @@
                                 </div>
                             </div>
                             <div class="bottomButton">
-                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp"></mat-spinner>
-                                <button [ngClass]="invalidOtp ? 'disabled-btn' : 'submit-btn'"
-                                    [disabled]="invalidOtp">{{invalidOtp ? 'Sign In' : 'Signing In...'}}</button>
+                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp || otpSubmit"></mat-spinner>
+                                <button [ngClass]="invalidOtp && !otpSubmit ? 'disabled-btn' : 'submit-btn'"
+                                    [disabled]="invalidOtp && !otpSubmit">{{invalidOtp && !otpSubmit ? 'Sign In' : 'Signing In...'}}</button>
                             </div>
                         </form>
                     </div>

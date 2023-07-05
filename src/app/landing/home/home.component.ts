@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   differentPassword: boolean = false;
   numberSubmit: boolean = false;
   invalidOtp: boolean = true;
-
+  otpSubmit:boolean = false;
   user: any;
   loggedIn: any;
   emailLogin: boolean = true;
@@ -161,7 +161,7 @@ export class HomeComponent implements OnInit {
   onOtpChange(e: any) {
     if (e.length > 3) {
       const params = {
-        otp: e,
+        otp: +e,
         email : localStorage.getItem('user-email')
       }
       this._as.otpChecker('/otpChecker', params).subscribe((next: any) => {
@@ -171,11 +171,27 @@ export class HomeComponent implements OnInit {
           setTimeout(() => {
             this.Signin()
             this.numberSubmit = false;
+            this._as.obNotify({
+              start: true,
+              code: 200,
+              status: 'success',
+              message: next.message
+            })
             this.router.navigate(['/dashboard']);
           }, 2000);
         }
         else{
+          this.otpSubmit = true;
           this.invalidOtp = true;
+          setTimeout(() => {
+            this.otpSubmit = false;
+            this._as.obNotify({
+              start: true,
+              code: 200,
+              status: 'error',
+              message: next.message
+            })
+          }, 2000);
           console.log("Invalid OTP");
           
         }
@@ -240,6 +256,7 @@ export class HomeComponent implements OnInit {
     
       this._as.signUp('/signup', params).subscribe((next: any) => {
       if (next && !next.error) {
+        localStorage.setItem('user-email',params['email'])
         this.numberSubmit = true;
         this._as.obNotify({
           start: true,
