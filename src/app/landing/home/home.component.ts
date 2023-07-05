@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
           this.signInwithEmail(this.user)
         }
         else{
+          this.user['name'] = this.user.firstName + ' ' + this.user.lastName;
           this.signupWithEmail(this.user)
         }
       }
@@ -164,12 +165,20 @@ export class HomeComponent implements OnInit {
         email : localStorage.getItem('user-email')
       }
       this._as.otpChecker('/otpChecker', params).subscribe((next: any) => {
-        this.invalidOtp = false;
-        setTimeout(() => {
-          this.Signin()
-          this.numberSubmit = false;
-          this.router.navigate(['/dashboard']);
-        }, 2000);
+        if(next && !next.error){
+
+          this.invalidOtp = false;
+          setTimeout(() => {
+            this.Signin()
+            this.numberSubmit = false;
+            this.router.navigate(['/dashboard']);
+          }, 2000);
+        }
+        else{
+          this.invalidOtp = true;
+          console.log("Invalid OTP");
+          
+        }
       })
     }
     else {
@@ -220,14 +229,16 @@ export class HomeComponent implements OnInit {
 
   signupWithEmail(user:any){
     let params = {
-      name : user.fullName,
+      name : user.name,
       email : user.email,
-      contact: user['contact'],
-      password: user['password'],
-      confirmPassword: user['confirmPassword'],
-      checkbox: user['checkbox']
+      contact: user['contact'] || '',
+      password: user['password'] || '',
+      confirmPassword: user['confirmPassword'] || '',
+      checkbox: user['checkbox'] || ''
     };
-      this._as.signIn('/signup', params).subscribe((next: any) => {
+    console.log(user,params);
+    
+      this._as.signUp('/signup', params).subscribe((next: any) => {
       if (next && !next.error) {
         this.numberSubmit = true;
         this._as.obNotify({
