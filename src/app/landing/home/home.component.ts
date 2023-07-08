@@ -23,17 +23,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   differentPassword: boolean = false;
   numberSubmit: boolean = false;
   invalidOtp: boolean = true;
-  otpSubmit:boolean = false;
+  otpSubmit: boolean = false;
   user: any;
   loggedIn: any;
   emailLogin: boolean = true;
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     private router: Router,
-     private _as: AuthService,
-      private authService: SocialAuthService,
-      private _socketService:SocketService,
-      private _cdr:ChangeDetectorRef
-      ) { }
+    private _as: AuthService,
+    private authService: SocialAuthService,
+    private _socketService: SocketService,
+    private _cdr: ChangeDetectorRef
+  ) { }
 
 
   googleLogin() {
@@ -42,11 +42,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.loggedIn = (user != null);
       console.log("Checking data of the user", this.user);
       localStorage.setItem('logged_in', 'true')
-      if(this.loggedIn){
-        if(this.signIn){
+      if (this.loggedIn) {
+        if (this.signIn) {
           this.signInwithEmail(this.user)
         }
-        else{
+        else {
           this.user['name'] = this.user.firstName + ' ' + this.user.lastName;
           this.signupWithEmail(this.user)
         }
@@ -80,11 +80,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      this._cdr.detectChanges();
+    this._cdr.detectChanges();
   }
   Signin() {
-    console.log("Sign in function clicked",this.signIn);
-    
+    // console.log("Sign in function clicked", this.signIn);
+
     // this._as.obNotify({
     //   start:true,
     //   code:200,
@@ -167,10 +167,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (e.length > 3) {
       const params = {
         otp: +e,
-        email : localStorage.getItem('user-email')
+        email: localStorage.getItem('user-email')
       }
       this._as.otpChecker('/otpChecker', params).subscribe((next: any) => {
-        if(next && !next.error){
+        if (next && next.response) {
 
           this.invalidOtp = false;
           setTimeout(() => {
@@ -181,12 +181,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
               code: 200,
               status: 'success',
               message: next.message
-            })
-            localStorage.setItem('user',JSON.stringify(next.response))
+            });
+            localStorage.setItem('logged_in', 'true')
+            localStorage.setItem('user', JSON.stringify(next.response));
             this.router.navigate(['/dashboard']);
           }, 2000);
         }
-        else{
+        else {
           this.otpSubmit = true;
           this.invalidOtp = true;
           setTimeout(() => {
@@ -199,7 +200,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
             })
           }, 2000);
           console.log("Invalid OTP");
-          
+
         }
       })
     }
@@ -221,14 +222,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
 
-  signInwithEmail(data:any){
+  signInwithEmail(data: any) {
     let params = {
-      email : data.email
+      email: data.email
     };
-        this._as.signIn('/signIn', params).subscribe((next: any) => {
+    this._as.signIn('/signIn', params).subscribe((next: any) => {
       if (next && !next.error) {
         this.numberSubmit = true;
-        localStorage.setItem('user-email',params['email'])
+        localStorage.setItem('user-email', params['email'])
         this._as.obNotify({
           start: true,
           code: 200,
@@ -249,20 +250,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
-  signupWithEmail(user:any){
+  signupWithEmail(user: any) {
     let params = {
-      name : user.name,
-      email : user.email,
+      name: user.name,
+      email: user.email,
       contact: user['contact'] || '',
       password: user['password'] || '',
       confirmPassword: user['confirmPassword'] || '',
       checkbox: user['checkbox'] || ''
     };
-    console.log(user,params);
-    
-      this._as.signUp('/signup', params).subscribe((next: any) => {
+    console.log(user, params);
+
+    this._as.signUp('/signup', params).subscribe((next: any) => {
       if (next && !next.error) {
-        localStorage.setItem('user-email',params['email'])
+        localStorage.setItem('user-email', params['email'])
         this.numberSubmit = true;
         this._as.obNotify({
           start: true,
