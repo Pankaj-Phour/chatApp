@@ -79,14 +79,7 @@
                                     <hr style="width: 30%;border-color: gray;">
                                 </div>
                                 <div class="second">
-                                    <!-- <img src="assets/images/google-xl.png" height="30" width="30" (click)="googleLogin()"> -->
                                     <asl-google-signin-button (click)="googleLogin()"></asl-google-signin-button>
-                                    <!-- <div class="google-btn" (click)="googleLogin()">
-                                    <div class="google-icon-wrapper">
-                                      <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-                                    </div>
-                                    <p class="btn-text"><b>Sign in with google</b></p>
-                                  </div> -->
                                     <img src="assets/images/facebook-xl.png" height="30" width="15">
                                     <img src="assets/images/twitter-xl.png" height="30" width="30">
                                 </div>
@@ -97,7 +90,7 @@
                                     style="color:#d4888d;cursor: pointer;" (click)="Signin()">Sign in</span></div>
                             <div class="header">
                                 <div class="heading">Sign Up</div>
-                                <div class="text">Let's start your wonderful journey with us</div>
+                                <div class="text">We have sent an OTP to your registered email. Please fill the OTP below to continue.</div>
                             </div>
                             <div class="inputs">
                                 <div class="formGroup" style="display: flex;justify-content: center;">
@@ -111,9 +104,9 @@
                                 </div>
                             </div>
                             <div class="bottomButton">
-                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp"></mat-spinner>
-                                <button [ngClass]="invalidOtp ? 'disabled-btn' : 'submit-btn'"
-                                    [disabled]="invalidOtp">{{invalidOtp ? 'Sign Up' : 'Signing Up...'}}</button>
+                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp || otpSubmit"></mat-spinner>
+                                <button [ngClass]="invalidOtp && !otpSubmit ? 'disabled-btn' : 'submit-btn'"
+                                    [disabled]="invalidOtp && !otpSubmit">{{invalidOtp && !otpSubmit ? 'Sign Up' : 'Signing Up...'}}</button>
                             </div>
                         </form>
                     </div>
@@ -162,6 +155,18 @@
                                 <button [ngClass]="signinForm.invalid ? 'disabled-btn' : 'submit-btn'"
                                     (click)="Submit()" [disabled]="signinForm.invalid">Sign In</button>
                             </div>
+                            <div class="bottom">
+                                <div class="first">
+                                    <hr style="width: 30%;border-color: gray;"><span class="text">Or continue with
+                                    </span>
+                                    <hr style="width: 30%;border-color: gray;">
+                                </div>
+                                <div class="second">
+                                    <asl-google-signin-button (click)="googleLogin()"></asl-google-signin-button>
+                                    <!-- <img src="assets/images/facebook-xl.png" height="30" width="15">
+                                    <img src="assets/images/twitter-xl.png" height="30" width="30"> -->
+                                </div>
+                            </div>
                         </form>
                         <form [formGroup]="otpForm" *ngIf="numberSubmit">
                             <div class="top" style="color: gray;font-size: 13px;">Don't have an account? <span
@@ -182,9 +187,9 @@
                                 </div>
                             </div>
                             <div class="bottomButton">
-                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp"></mat-spinner>
-                                <button [ngClass]="invalidOtp ? 'disabled-btn' : 'submit-btn'"
-                                    [disabled]="invalidOtp">{{invalidOtp ? 'Sign In' : 'Signing In...'}}</button>
+                                <mat-spinner [diameter]="25" class="spinner" *ngIf="!invalidOtp || otpSubmit"></mat-spinner>
+                                <button [ngClass]="invalidOtp && !otpSubmit ? 'disabled-btn' : 'submit-btn'"
+                                    [disabled]="invalidOtp && !otpSubmit">{{invalidOtp && !otpSubmit ? 'Sign In' : 'Signing In...'}}</button>
                             </div>
                         </form>
                     </div>

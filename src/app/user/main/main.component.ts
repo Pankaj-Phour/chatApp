@@ -1,15 +1,17 @@
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { JsonPipe } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, HostListener, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { SocketService } from 'src/app/services/socket.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, AfterViewInit {
 names:any = [];
 date:any;
 
@@ -24,10 +26,17 @@ nameList:any = ['Richard','Luis Fonsi','John','Smith','Billy','Sam','Steve','Ton
 inputForm:any = FormGroup;
 selected:any;
 public textArea: string = '';
-  constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService) { }
+user:any;
+
+  constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService, private _cdr:ChangeDetectorRef, private socketService:SocketService, private router:Router) { }
 
   ngOnInit(): void {
-
+    if(!localStorage.getItem('user')){
+      this.logout();
+    }
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.socketService.SocketConnection();
+    
     this._as.allUsers('/allusers').subscribe((next:any)=>{
       // console.log("All users response",next);
       this.names = [...next.response];
@@ -50,6 +59,10 @@ public textArea: string = '';
     this.inputForm = this.fb.group({
       message: ['',Validators.required]
     })
+  }
+
+  ngAfterViewInit(): void {
+      this._cdr.detectChanges();
   }
 
   FilterNames(e:any){
@@ -81,9 +94,17 @@ public textArea: string = '';
     if(this.inputForm.value.message){
       this.messageList.push({message:this.inputForm.value.message});
       this.selected.messageList.push({message:this.inputForm.value.message});
-      this.inputForm.reset();
       this.names = this.original;
       this.names[this.selected.index].typing = false;
+      let param = {
+        sender: this.user,
+        reciever : this.selected,
+        message : this.inputForm.value.message
+      }
+      console.log(this.socketService.socket);
+      
+      this.socketService.socket.emit('message',param)
+      this.inputForm.reset();
     }
     else{
       // console.log("Can't send Empty message");
@@ -149,6 +170,18 @@ public textArea: string = '';
       this.inputForm.get('message').setValue(input.value)
       
    }
+
+   logout(){
+    localStorage.clear();
+    this.router.navigate(['../']);
+    console.log("Loggin out");
+    this._as.obNotify({
+      start:true,
+      code:200,
+      status:'success',
+      message:'Logged out Successfully'
+    })
+  }
 }
 
 
@@ -172,6 +205,7 @@ export class MenuBox implements OnInit{
   }
 
   logout(){
+    localStorage.clear();
     this.router.navigate(['../']);
     console.log("Loggin out");
     this._as.obNotify({

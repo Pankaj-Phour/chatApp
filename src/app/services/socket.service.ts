@@ -13,7 +13,9 @@ export class SocketService {
 
   SocketConnection(){
     this.socket = io(environment.URL);
-
+    this.socket['userId'] = JSON.parse(localStorage.getItem('user'))._id;
+    console.log(this.socket);
+    
     this.socket.emit('message',"Message from frontend")
 
     this.socket.on('response',(msg:any)=>{
