@@ -16,10 +16,10 @@ export class SocketService {
     this.socket['userId'] = JSON.parse(localStorage.getItem('user'))._id;
     console.log(this.socket);
     
-    this.socket.emit('message',"Message from frontend")
+    // this.socket.emit('message',"Message from frontend")
 
-    this.socket.on('response',(msg:any)=>{
-      console.log("Message from backend",msg);
+    this.socket.on('messsage',(msg:any)=>{
+      console.log("Received message",msg);
       
     })
   }

@@ -31,9 +31,14 @@ user:any;
   constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService, private _cdr:ChangeDetectorRef, private socketService:SocketService, private router:Router) { }
 
   ngOnInit(): void {
+    console.log("Hello from main component");
+    
     if(!localStorage.getItem('user')){
       this.logout();
+      console.log("Loggin out user");
+      
     }
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this.socketService.SocketConnection();
     
@@ -95,6 +100,7 @@ user:any;
       this.messageList.push({message:this.inputForm.value.message});
       this.selected.messageList.push({message:this.inputForm.value.message});
       this.names = this.original;
+      this.selected.sending = '';
       this.names[this.selected.index].typing = false;
       let param = {
         sender: this.user,
