@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log("Checking data of the user", this.user);
+      // console.log("Checking data of the user", this.user);
       localStorage.setItem('logged_in', 'true')
       if (this.loggedIn) {
         if (this.signIn) {
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   Submit() {
-    console.log("Submitted");
+    // console.log("Submitted");
     if (this.signIn) {
       let params = {};
       if (this.emailLogin) {
@@ -199,7 +199,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               message: next.message
             })
           }, 2000);
-          console.log("Invalid OTP");
+          // console.log("Invalid OTP");
 
         }
       })
@@ -259,7 +259,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       confirmPassword: user['confirmPassword'] || '',
       checkbox: user['checkbox'] || ''
     };
-    console.log(user, params);
+    // console.log(user, params);
 
     this._as.signUp('/signup', params).subscribe((next: any) => {
       if (next && !next.error) {
