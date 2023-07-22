@@ -31,11 +31,11 @@ user:any;
   constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService, private _cdr:ChangeDetectorRef, private socketService:SocketService, private router:Router) { }
 
   ngOnInit(): void {
-    console.log("Hello from main component");
+    // console.log("Hello from main component");
     
     if(!localStorage.getItem('user')){
       this.logout();
-      console.log("Loggin out user");
+      // console.log("Logging out user");
       
     }
 
@@ -107,7 +107,7 @@ user:any;
         reciever : this.selected,
         message : this.inputForm.value.message
       }
-      console.log(this.socketService.socket);
+      // console.log(this.socketService.socket);
       
       this.socketService.socket.emit('message',param)
       this.inputForm.reset();
@@ -213,7 +213,7 @@ export class MenuBox implements OnInit{
   logout(){
     localStorage.clear();
     this.router.navigate(['../']);
-    console.log("Loggin out");
+    // console.log("Logging out");
     this._as.obNotify({
       start:true,
       code:200,
