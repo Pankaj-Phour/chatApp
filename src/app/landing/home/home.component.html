@@ -177,7 +177,7 @@
                             </div>
                             <div class="inputs">
                                 <div class="formGroup" style="display: flex;justify-content: center;">
-                                    <ng-otp-input formnControlName="otp" [config]="{length:4}"
+                                    <ng-otp-input formControlName="otp" [config]="{length:4}"
                                         (keydown)="keyValue($event)"
                                         (onInputChange)="onOtpChange($event)"></ng-otp-input>
                                     <!-- <span class="error"
