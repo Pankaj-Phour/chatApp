@@ -31,9 +31,14 @@ user:any;
   constructor(private fb:FormBuilder, private dialogRef:MatDialog, private _as:AuthService, private _cdr:ChangeDetectorRef, private socketService:SocketService, private router:Router) { }
 
   ngOnInit(): void {
+    // console.log("Hello from main component");
+    
     if(!localStorage.getItem('user')){
       this.logout();
+      // console.log("Logging out user");
+      
     }
+
     this.user = JSON.parse(localStorage.getItem('user'));
     this.socketService.SocketConnection();
     
@@ -95,13 +100,14 @@ user:any;
       this.messageList.push({message:this.inputForm.value.message});
       this.selected.messageList.push({message:this.inputForm.value.message});
       this.names = this.original;
+      this.selected.sending = '';
       this.names[this.selected.index].typing = false;
       let param = {
         sender: this.user,
         reciever : this.selected,
         message : this.inputForm.value.message
       }
-      console.log(this.socketService.socket);
+      // console.log(this.socketService.socket);
       
       this.socketService.socket.emit('message',param)
       this.inputForm.reset();
@@ -207,7 +213,7 @@ export class MenuBox implements OnInit{
   logout(){
     localStorage.clear();
     this.router.navigate(['../']);
-    console.log("Loggin out");
+    // console.log("Logging out");
     this._as.obNotify({
       start:true,
       code:200,
